@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recipe Quantity Calculator</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>🍲 Recipe Quantity Calculator</h1>
+        <p>Calculate ingredients according to your servings</p>
+    </header>
+
+    <main class="container">
+
+        <section class="calculator">
+
+            <h2>Select Your Recipe</h2>
+
+            <label for="category">Recipe Category</label>
+
+            <select id="category">
+                <option value="All">All Recipes</option>
+                <option value="Veg">Vegetarian</option>
+                <option value="Non-Veg">Non-Vegetarian</option>
+            </select>
+
+            <label for="recipe">Choose Recipe</label>
+
+            <select id="recipe">
+                <option value="">-- Select Recipe --</option>
+
+                {% for r in recipes %}
+                <option value="{{ r.id }}"
+                        data-category="{{ r.category }}">
+                    {{ r.name }} ({{ r.category }})
+                </option>
+                {% endfor %}
+
+            </select>
+
+            <label for="servings">Number of Servings</label>
+
+            <input
+                type="number"
+                id="servings"
+                min="1"
+                max="1000"
+                value="2"
+                placeholder="Enter number of servings"
+            >
+
+            <button id="calculateBtn" type="button">
+                Calculate Ingredients
+            </button>
+
+            <p id="message"></p>
+
+        </section>
+
+
+        <section class="result-section" id="resultSection">
+
+            <h2>🥗 Required Ingredients</h2>
+
+            <div id="recipeInfo"></div>
+
+            <div class="table-container">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Ingredient Name</th>
+                            <th>Required Quantity</th>
+                            <th>Unit</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="ingredientList">
+                        <tr>
+                            <td colspan="4">
+                                Select a recipe to see ingredients.
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>Recipe Quantity Calculator | Python Flask | SQLite</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
